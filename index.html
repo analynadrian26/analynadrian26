@@ -2,182 +2,528 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Analyn Adriano | Data Engineer, Data Analyst, Software Engineer , ETL Developer</title>
+  <title>Analyn Adriano | Data Engineer, Data Analyst, Software Engineer, ETL Developer</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
-    body {
-      font-family: 'Segoe UI', Arial, sans-serif;
+    * {
       margin: 0;
       padding: 0;
-      background: #f8f9fb;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: #f0f4f8;
       color: #223;
       min-height: 100vh;
     }
+
+    /* Navigation Bar - Light Blue Theme */
+    nav {
+      background: linear-gradient(135deg, #b3d9f2 0%, #a0cfe9 100%);
+      padding: 1.2rem 2rem;
+      display: flex;
+      justify-content: center;
+      gap: 2.5rem;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 12px rgba(0, 74, 173, 0.15);
+    }
+
+    nav a {
+      text-decoration: none;
+      color: #1a4d7a;
+      font-weight: 600;
+      font-size: 0.95rem;
+      padding: 0.5rem 0;
+      border-bottom: 3px solid transparent;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      letter-spacing: 0.5px;
+    }
+
+    nav a:hover,
+    nav a.active {
+      color: #004aad;
+      border-bottom-color: #004aad;
+    }
+
     .wave-bg {
       position: absolute;
-      top: 0; left: 0;
-      width: 100vw; height: 180px;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 200px;
       z-index: 0;
       pointer-events: none;
     }
+
     header {
       background: transparent;
       color: #fff;
       text-align: center;
-      padding: 2.8rem 1rem 2rem 1rem;
+      padding: 3rem 1rem 2.5rem 1rem;
       position: relative;
       z-index: 2;
+      margin-top: -30px;
     }
+
     .profile-pic {
-      width: 110px;
-      height: 110px;
+      width: 130px;
+      height: 130px;
       border-radius: 50%;
-      border: 4px solid #fff;
-      margin-bottom: 1em;
+      border: 5px solid #fff;
+      margin-bottom: 1.2em;
       object-fit: cover;
-      box-shadow: 0 1px 15px #2221;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
     }
+
     .name-highlight {
       color: #004aad;
       font-weight: bold;
+      font-size: 2.2em;
+      text-shadow: none;
     }
+
     .role-highlight {
       color: #ff9800;
-      font-weight: bold;
-      font-size: 1.37em;
-      margin-top: 0.2em;
-      margin-bottom: 0.8em;
+      font-weight: 600;
+      font-size: 1.2em;
+      margin-top: 0.3em;
+      margin-bottom: 1em;
+      text-shadow: none;
     }
+
     .contact-color,
     .contact-color a,
     .contact-color span {
-      color: #237ee3 !important;
+      color: #0066cc !important;
       font-weight: 500;
-      font-size: 1.09em;
+      font-size: 1em;
     }
+
     .contact-color a:hover {
       text-decoration: underline;
       color: #004aad !important;
     }
+
     main {
-      max-width: 800px;
-      margin: 2rem auto;
-      background: #fff;
-      padding: 2rem;
-      border-radius: 14px;
-      box-shadow: 0 4px 24px #0001;
+      max-width: 900px;
+      margin: 2.5rem auto;
+      background: #ffffff;
+      padding: 2.5rem;
+      border-radius: 16px;
+      box-shadow: 0 6px 30px rgba(0, 74, 173, 0.12);
       position: relative;
       z-index: 2;
     }
-    h1, h2 { margin-top: 0;}
-    h1 { font-size: 2.5rem;}
-    .icon { font-size: 1.3em; vertical-align: middle; margin-right: 0.3em;}
-    .section { margin: 2.5rem 0 1.5rem;}
-    ul { padding-left: 1.2em;}
-    .skills-list, .tools-list {list-style: none; padding: 0; margin: 0 0 0.3em 0;}
-    .skills-list li, .tools-list li {display: inline-block; background: #eaf1fa; color: #034ea2; border-radius: 15px; padding: 0.3em 1em; margin: 0.25em 0.2em; font-size: 1em;}
-    .job-title { font-weight: bold; color: #034ea2;}
-    .company-period {font-style: italic; color: #466;}
-    .edu {margin-bottom: 1.2em;}
-    .award {background: #ecfbe4; border-left: 5px solid #85b963; padding: 0.7em 1em; margin: 0.8em 0 0;}
-    @media (max-width:600px) {
-      main {padding:1em;}
-      h1 {font-size:2em;}
+
+    .page-content {
+      display: none;
+    }
+
+    .page-content.active {
+      display: block;
+      animation: fadeIn 0.4s ease;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(15px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    h1, h2 {
+      margin-top: 0;
+      color: #004aad;
+    }
+
+    h1 {
+      font-size: 2.8rem;
+    }
+
+    h2 {
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+    }
+
+    h3 {
+      color: #004aad;
+      margin-top: 1.5rem;
+    }
+
+    .icon {
+      font-size: 1.5em;
+      vertical-align: middle;
+      margin-right: 0.5em;
+    }
+
+    .section {
+      margin: 2rem 0;
+    }
+
+    p {
+      line-height: 1.6;
+      margin-bottom: 1rem;
+      color: #444;
+    }
+
+    ul {
+      padding-left: 1.5em;
+      margin-bottom: 1rem;
+    }
+
+    ul li {
+      margin-bottom: 0.5rem;
+      color: #555;
+      line-height: 1.6;
+    }
+
+    .skills-list, .tools-list {
+      list-style: none;
+      padding: 0;
+      margin: 1.5rem 0;
+    }
+
+    .skills-list li, .tools-list li {
+      display: inline-block;
+      background: linear-gradient(135deg, #d4e8f7 0%, #c5dff8 100%);
+      color: #004aad;
+      border-radius: 20px;
+      padding: 0.5em 1.2em;
+      margin: 0.4em 0.3em;
+      font-size: 0.95em;
+      font-weight: 500;
+      border: 1px solid #a8d0f0;
+    }
+
+    .job-title {
+      font-weight: 700;
+      color: #004aad;
+      font-size: 1.1em;
+      margin-top: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .company-period {
+      font-style: italic;
+      color: #666;
+      font-size: 0.95em;
+    }
+
+    .edu {
+      margin-bottom: 1.5em;
+      padding: 1rem;
+      background: #f0f4f8;
+      border-left: 4px solid #004aad;
+      border-radius: 6px;
+    }
+
+    .award {
+      background: linear-gradient(135deg, #e6f7e6 0%, #d4f0d4 100%);
+      border-left: 5px solid #4caf50;
+      padding: 1rem;
+      margin: 1rem 0;
+      border-radius: 8px;
+    }
+
+    .contact-info {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin: 2rem 0;
+    }
+
+    .contact-item {
+      background: linear-gradient(135deg, #f0f9ff 0%, #e6f3ff 100%);
+      padding: 1.5rem;
+      border-radius: 10px;
+      border-left: 4px solid #004aad;
+    }
+
+    .contact-item strong {
+      color: #004aad;
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+
+    .contact-item a {
+      color: #0066cc;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .contact-item a:hover {
+      text-decoration: underline;
+    }
+
+    footer {
+      text-align: center;
+      font-size: 0.9em;
+      color: #666;
+      margin: 2em 0 1em 0;
+      position: relative;
+      z-index: 2;
+    }
+
+    @media (max-width: 768px) {
+      nav {
+        gap: 1.2rem;
+        padding: 1rem;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      nav a {
+        font-size: 0.85rem;
+      }
+
+      main {
+        padding: 1.5em;
+        margin: 1.5rem auto;
+      }
+
+      h1 {
+        font-size: 2.2em;
+      }
+
+      h2 {
+        font-size: 1.5rem;
+      }
+
+      header {
+        padding: 2rem 1rem 1.5rem 1rem;
+      }
+
+      .profile-pic {
+        width: 100px;
+        height: 100px;
+      }
+
+      .role-highlight {
+        font-size: 1rem;
+      }
+    }
+
+    @media (max-width: 600px) {
+      nav {
+        gap: 0.8rem;
+        padding: 0.8rem 0.5rem;
+      }
+
+      nav a {
+        font-size: 0.75rem;
+        padding: 0.3rem 0.4rem;
+      }
+
+      main {
+        padding: 1em;
+        margin: 1rem auto;
+      }
+
+      h1 {
+        font-size: 1.8rem;
+      }
+
+      h2 {
+        font-size: 1.3rem;
+      }
+
+      .profile-pic {
+        width: 80px;
+        height: 80px;
+      }
+
+      .role-highlight {
+        font-size: 0.9em;
+      }
+
+      .name-highlight {
+        font-size: 1.6em;
+      }
+
+      .contact-info {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>
 <body>
   <!-- SVG Decorative Wave Background -->
-  <svg class="wave-bg" viewBox="0 0 1200 180" preserveAspectRatio="none">
-    <path d="M0,80 C300,180 900,0 1200,80 L1200,0 L0,0 Z" fill="#2196f3" fill-opacity=".13"/>
-    <path d="M0,120 C350,100 800,200 1200,110 L1200,0 L0,0 Z" fill="#1565c0" fill-opacity=".09"/>
+  <svg class="wave-bg" viewBox="0 0 1200 200" preserveAspectRatio="none">
+    <path d="M0,80 C300,180 900,0 1200,80 L1200,0 L0,0 Z" fill="#004aad" fill-opacity=".08"/>
+    <path d="M0,120 C350,100 800,200 1200,110 L1200,0 L0,0 Z" fill="#2196f3" fill-opacity=".06"/>
+    <path d="M0,140 C400,120 850,180 1200,130 L1200,0 L0,0 Z" fill="#1565c0" fill-opacity=".04"/>
   </svg>
+
+  <!-- Navigation Bar -->
+  <nav>
+    <a onclick="showPage('about')" class="nav-link active">ABOUT ME</a>
+    <a onclick="showPage('experience')" class="nav-link">EXPERIENCE</a>
+    <a onclick="showPage('skills')" class="nav-link">SKILLS</a>
+    <a onclick="showPage('certificate')" class="nav-link">CERTIFICATE</a>
+    <a onclick="showPage('contact')" class="nav-link">CONTACT</a>
+  </nav>
 
   <!-- Stylish Portfolio Header -->
   <header>
-    <!-- UPDATED IMAGE SRC BELOW -->
     <img class="profile-pic" src="img/portfolio_photo.jpg" alt="Analyn Adriano">
     <h1 class="name-highlight">Analyn Adriano</h1>
     <p class="role-highlight">Data Engineer / Data Analyst / Software Engineer / ETL Developer</p>
-    <div class="contact contact-color">
-      <span>🏠 Bulacan, Philippines</span> &middot;
-      <span>☏ 0933 292 3811</span> &middot;
-      <a href="mailto:analynadrian26@gmail.com">✉ Email</a> |
-      <a href="https://www.linkedin.com/in/analyn-adriano-a925763b9/" target="_blank">🔗 LinkedIn</a>
-    </div>
   </header>
 
   <main>
-    <section class="section">
-      <h2><span class="icon">📋</span>Professional Summary</h2>
-      <p>
-        Data Engineering & ETL Specialist with over 10 years of progressive experience designing,
-building, and optimizing data solutions across enterprise environments. Proven expertise in ETL
-development, data integration, API management, and analytics platforms with a track record of
-delivering high-quality, scalable data infrastructure.
-      </p>
-    </section>
-    <section class="section">
-      <h2><span class="icon">🧑‍💻</span>Technical Skills</h2>
-      <ul class="skills-list">
-        <li>SQL (MSSQL, Oracle , Postgre)</li>
-        <li>Informatica PowerCenter</li>
-        <li>SSIS</li>
-        <li>ETL Mapping</li>
-        <li>Data Validation</li>
-        <li>MSPBots</li>
-        <li>DataGrip</li>
-        <li>Postman (API Testing)</li>
-        <li>REST APIs</li>
-        <li>Excel / PowerPoint</li>
-        <li>Google Workspace</li>
-      </ul>
-    </section>
-    <section class="section">
-      <h2><span class="icon">💼</span>Professional Experience</h2>
-      <p class="job-title">MSPBOTS | Data Engineer / Data Analyst <span class="company-period">Dec 2020 – April 2026</span></p>
-      <ul>
-        <li>Design, develop, and maintain high-performance datasets sourced from PSA and RMM platforms, empowering MSP clients with advanced analytics and actionable strategic insights.</li>
-        <li>Create dashboards and reports in MSPbots visualizing key business KPIs from PSA tools.</li>
-        <li>API testing and data handling using Postman for seamless integration and accuracy.</li>
-        <li>Collaborate across teams to resolve data discrepancies and improve reliability.</li>
-      </ul>
-      <p class="job-title">KIINDE LLC | Operations Assistant <span class="company-period">Jun 2020 – Nov 2020</span></p>
-      <ul>
-        <li>Developed and executed SQL queries for operational business insights.</li>
-        <li>Optimized B2B/B2C dispute filing process ensuring timely and accurate documentation.</li>
-      </ul>
-      <p class="job-title">Earnst and Young (EY) | Informatica Consultant <span class="company-period">Jun 2017 – Feb 2018</span></p>
-      <ul>
-        <li>Reviewed functional and technical specs to guide ETL architecture and compliance.</li>
-        <li>Performed code/data review to ensure enterprise-level standards.</li>
-      </ul>
-      <p class="job-title">Accenture Inc. | Software Engineer <span class="company-period">Apr 2013 – May 2017</span></p>
-      <ul>
-        <li>Designed and tested Informatica Mappings/Workflows for large data integration.</li>
-        <li>Authored technical design specs for global teams.</li>
-        <li>Translated requirements into code; solved critical system defects pre-production.</li>
-      </ul>
-    </section>
-    <section class="section">
-      <h2><span class="icon">🎓</span>Education</h2>
-      <div class="edu">
-        <strong>Bachelor of Science in Electronics and Communications Engineering</strong><br>
-        Bulacan State University | 2006 – 2011
-      </div>
-    </section>
-    <section class="section">
-      <h2><span class="icon">🏅</span>Certifications & Recognition</h2>
-      <div class="award">
-        <strong>Value Creator Award:</strong> Ownership of 85% of technical designs for Contract MERC/MGU, Integrys. Awarded to Analyn Evangelista Adriano.
-      </div>
-      <div class="award">
-        <strong>Certificate:</strong> How to Start Working from Home (FHMoms, 2020).
-      </div>
-    </section>
+    <!-- ABOUT ME PAGE -->
+    <div id="about" class="page-content active">
+      <section class="section">
+        <h2><span class="icon">📋</span>Professional Summary</h2>
+        <p>
+          Data Engineering & ETL Specialist with over 10 years of progressive experience designing, building, and optimizing data solutions across enterprise environments. Proven expertise in ETL development, data pipeline architecture, and analytics. Passionate about transforming complex data into actionable insights that drive business value.
+        </p>
+        <p>
+          Specialized in enterprise-level data integration, working with platforms like Informatica PowerCenter, SSIS, and cloud-based solutions. Dedicated to ensuring data quality, reliability, and performance at scale.
+        </p>
+      </section>
+    </div>
+
+    <!-- EXPERIENCE PAGE -->
+    <div id="experience" class="page-content">
+      <section class="section">
+        <h2><span class="icon">💼</span>Professional Experience</h2>
+        
+        <p class="job-title">MSPBOTS | Data Engineer / Data Analyst <span class="company-period">Dec 2020 – April 2026</span></p>
+        <ul>
+          <li>Design, develop, and maintain high-performance datasets sourced from PSA and RMM platforms, empowering MSP clients with advanced analytics and actionable strategic insights.</li>
+          <li>Create dashboards and reports in MSPbots visualizing key business KPIs from PSA tools.</li>
+          <li>API testing and data handling using Postman for seamless integration and accuracy.</li>
+          <li>Collaborate across teams to resolve data discrepancies and improve reliability.</li>
+        </ul>
+
+        <p class="job-title">KIINDE LLC | Operations Assistant <span class="company-period">Jun 2020 – Nov 2020</span></p>
+        <ul>
+          <li>Developed and executed SQL queries for operational business insights.</li>
+          <li>Optimized B2B/B2C dispute filing process ensuring timely and accurate documentation.</li>
+        </ul>
+
+        <p class="job-title">Earnst and Young (EY) | Informatica Consultant <span class="company-period">Jun 2017 – Feb 2018</span></p>
+        <ul>
+          <li>Reviewed functional and technical specs to guide ETL architecture and compliance.</li>
+          <li>Performed code/data review to ensure enterprise-level standards.</li>
+        </ul>
+
+        <p class="job-title">Accenture Inc. | Software Engineer <span class="company-period">Apr 2013 – May 2017</span></p>
+        <ul>
+          <li>Designed and tested Informatica Mappings/Workflows for large data integration.</li>
+          <li>Authored technical design specs for global teams.</li>
+          <li>Translated requirements into code; solved critical system defects pre-production.</li>
+        </ul>
+      </section>
+    </div>
+
+    <!-- SKILLS PAGE -->
+    <div id="skills" class="page-content">
+      <section class="section">
+        <h2><span class="icon">🧑‍💻</span>Technical Skills</h2>
+        
+        <h3>Languages & Databases</h3>
+        <ul class="skills-list">
+          <li>SQL (MSSQL, Oracle, PostgreSQL)</li>
+          <li>Python</li>
+        </ul>
+
+        <h3>Tools & Platforms</h3>
+        <ul class="skills-list">
+          <li>MSPBots</li>
+          <li>DataGrip</li>
+          <li>Postman (API Testing)</li>
+          <li>REST APIs</li>
+          <li>Informatica Power Center</li>
+        </ul>
+
+        <h3>Office & Collaboration</h3>
+        <ul class="skills-list">
+          <li>Excel / PowerPoint</li>
+          <li>Google Workspace</li>
+          <li>Git / GitHub</li>
+        </ul>
+      </section>
+    </div>
+
+    <!-- CERTIFICATE PAGE -->
+    <div id="certificate" class="page-content">
+      <section class="section">
+        <h2><span class="icon">🏅</span>Certifications & Recognition</h2>
+        
+        <div class="award">
+          <strong>Value Creator Award</strong><br>
+          Ownership of 85% of technical designs for Contract MERC/MGU, Integrys. Awarded to Analyn Evangelista.
+        </div>
+
+        <div class="award">
+          <strong>Certificate: How to Start Working from Home</strong><br>
+          FHMoms, 2020
+        </div>
+
+        <div class="award">
+          <strong>Proficiency Certification</strong><br>
+          Advanced ETL Development and Data Architecture Design
+        </div>
+      </section>
+    </div>
+
+    <!-- CONTACT PAGE -->
+    <div id="contact" class="page-content">
+      <section class="section">
+        <h2><span class="icon">📞</span>Get In Touch</h2>
+        <p>I'm always interested in hearing about new projects and opportunities. Feel free to reach out through any of the methods below!</p>
+        
+        <div class="contact-info">
+          <div class="contact-item">
+            <strong>📧 Email</strong>
+            <a href="mailto:analynadrian26@gmail.com">analynadrian26@gmail.com</a>
+          </div>
+          <div class="contact-item">
+            <strong>📱 Phone</strong>
+            <a href="tel:+639332923811">+639332923811</a>
+          </div>
+          <div class="contact-item">
+            <strong>🔗 LinkedIn</strong>
+            <a href="https://www.linkedin.com/in/analyn-adriano/" target="_blank">linkedin.com/in/analyn-adriano</a>
+          </div>
+        </div>
+      </section>
+    </div>
   </main>
-  <footer style="text-align:center; font-size:0.9em; color:#888; margin:1.8em 0 1em 0;z-index:2;position:relative;">
-    &copy; 2026 Analyn Adriano
+
+  <footer>
+    &copy; 2026 Analyn Adriano. All rights reserved.
   </footer>
+
+  <script>
+    function showPage(pageId) {
+      // Hide all pages
+      const pages = document.querySelectorAll('.page-content');
+      pages.forEach(page => page.classList.remove('active'));
+      
+      // Remove active class from all nav links
+      const navLinks = document.querySelectorAll('.nav-link');
+      navLinks.forEach(link => link.classList.remove('active'));
+      
+      // Show selected page
+      document.getElementById(pageId).classList.add('active');
+      
+      // Mark nav link as active
+      event.target.classList.add('active');
+      
+      // Scroll to top
+      window.scrollTo(0, 0);
+    }
+  </script>
 </body>
 </html>
