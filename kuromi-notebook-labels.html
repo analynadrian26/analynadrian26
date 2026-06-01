@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kuromi Notebook Labels - Editable</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #e6ccff 0%, #f0e6ff 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #6b2c91;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .input-section {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            border: 3px solid #d4a5ff;
+        }
+
+        .input-section h2 {
+            color: #6b2c91;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+        }
+
+        .input-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .input-field {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .input-field label {
+            color: #6b2c91;
+            font-weight: bold;
+            margin-bottom: 8px;
+            font-size: 1.1em;
+        }
+
+        .input-field input {
+            padding: 12px;
+            border: 2px solid #d4a5ff;
+            border-radius: 10px;
+            font-size: 1em;
+            transition: border-color 0.3s;
+        }
+
+        .input-field input:focus {
+            outline: none;
+            border-color: #b366ff;
+            box-shadow: 0 0 8px rgba(179, 102, 255, 0.3);
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        button {
+            padding: 12px 30px;
+            font-size: 1em;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .btn-print {
+            background: linear-gradient(135deg, #d946a6 0%, #b366ff 100%);
+            color: white;
+        }
+
+        .btn-print:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(217, 70, 166, 0.3);
+        }
+
+        .btn-reset {
+            background: linear-gradient(135deg, #a78bfa 0%, #c4b5fd 100%);
+            color: white;
+        }
+
+        .btn-reset:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(167, 139, 250, 0.3);
+        }
+
+        @media (max-width: 768px) {
+            .input-group {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .labels-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .label-box {
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            border: 3px solid #d4a5ff;
+            min-height: 200px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+        }
+
+        .label-content {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .label-field {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .label-icon {
+            font-size: 1.5em;
+            color: #d946a6;
+        }
+
+        .label-text {
+            color: #6b2c91;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+
+        .label-value {
+            color: #6b2c91;
+            font-size: 1.3em;
+            font-weight: bold;
+            border-bottom: 2px dashed #d4a5ff;
+            padding: 5px 0;
+            min-height: 30px;
+            word-wrap: break-word;
+        }
+
+        .label-empty {
+            color: #999;
+            font-style: italic;
+        }
+
+        .preview-section {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            border: 3px solid #d4a5ff;
+        }
+
+        .preview-section h2 {
+            color: #6b2c91;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+            text-align: center;
+        }
+
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            .input-section, .button-group, .preview-section h2 {
+                display: none;
+            }
+            .labels-container {
+                gap: 10px;
+            }
+            .label-box {
+                break-inside: avoid;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .labels-container {
+                grid-template-columns: 1fr;
+            }
+            .header h1 {
+                font-size: 1.8em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>💜 Kuromi Notebook Labels 💜</h1>
+            <p>Fill in your details below to create personalized labels</p>
+        </div>
+
+        <div class="input-section">
+            <h2>Enter Your Information</h2>
+            <div class="input-group">
+                <div class="input-field">
+                    <label for="name">Name:</label>
+                    <input 
+                        type="text" 
+                        id="name" 
+                        placeholder="Enter your name" 
+                        oninput="updateLabels()"
+                    >
+                </div>
+                <div class="input-field">
+                    <label for="grade">Grade:</label>
+                    <input 
+                        type="text" 
+                        id="grade" 
+                        placeholder="Enter your grade" 
+                        oninput="updateLabels()"
+                    >
+                </div>
+                <div class="input-field">
+                    <label for="subject">Subject:</label>
+                    <input 
+                        type="text" 
+                        id="subject" 
+                        placeholder="Enter subject" 
+                        oninput="updateLabels()"
+                    >
+                </div>
+            </div>
+            <div class="button-group">
+                <button class="btn-print" onclick="window.print()">🖨️ Print Labels</button>
+                <button class="btn-reset" onclick="resetForm()">↺ Reset</button>
+            </div>
+        </div>
+
+        <div class="preview-section">
+            <h2>Preview - Your Labels</h2>
+            <div class="labels-container">
+                <!-- Label 1 -->
+                <div class="label-box">
+                    <div class="label-content">
+                        <div class="label-field">
+                            <span class="label-icon">💖</span>
+                            <span class="label-text">Name :</span>
+                        </div>
+                        <div class="label-value" id="display-name-1">
+                            <span class="label-empty">Enter your name</span>
+                        </div>
+                        
+                        <div class="label-field">
+                            <span class="label-icon">💜</span>
+                            <span class="label-text">Grade :</span>
+                        </div>
+                        <div class="label-value" id="display-grade-1">
+                            <span class="label-empty">Enter your grade</span>
+                        </div>
+                        
+                        <div class="label-field">
+                            <span class="label-icon">💖</span>
+                            <span class="label-text">Subject :</span>
+                        </div>
+                        <div class="label-value" id="display-subject-1">
+                            <span class="label-empty">Enter subject</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Label 2 -->
+                <div class="label-box">
+                    <div class="label-content">
+                        <div class="label-field">
+                            <span class="label-icon">💖</span>
+                            <span class="label-text">Name :</span>
+                        </div>
+                        <div class="label-value" id="display-name-2">
+                            <span class="label-empty">Enter your name</span>
+                        </div>
+                        
+                        <div class="label-field">
+                            <span class="label-icon">💜</span>
+                            <span class="label-text">Grade :</span>
+                        </div>
+                        <div class="label-value" id="display-grade-2">
+                            <span class="label-empty">Enter your grade</span>
+                        </div>
+                        
+                        <div class="label-field">
+                            <span class="label-icon">💖</span>
+                            <span class="label-text">Subject :</span>
+                        </div>
+                        <div class="label-value" id="display-subject-2">
+                            <span class="label-empty">Enter subject</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Label 3 -->
+                <div class="label-box">
+                    <div class="label-content">
+                        <div class="label-field">
+                            <span class="label-icon">💖</span>
+                            <span class="label-text">Name :</span>
+                        </div>
+                        <div class="label-value" id="display-name-3">
+                            <span class="label-empty">Enter your name</span>
+                        </div>
+                        
+                        <div class="label-field">
+                            <span class="label-icon">💜</span>
+                            <span class="label-text">Grade :</span>
+                        </div>
+                        <div class="label-value" id="display-grade-3">
+                            <span class="label-empty">Enter your grade</span>
+                        </div>
+                        
+                        <div class="label-field">
+                            <span class="label-icon">💖</span>
+                            <span class="label-text">Subject :</span>
+                        </div>
+                        <div class="label-value" id="display-subject-3">
+                            <span class="label-empty">Enter subject</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Label 4 -->
+                <div class="label-box">
+                    <div class="label-content">
+                        <div class="label-field">
+                            <span class="label-icon">💖</span>
+                            <span class="label-text">Name :</span>
+                        </div>
+                        <div class="label-value" id="display-name-4">
+                            <span class="label-empty">Enter your name</span>
+                        </div>
+                        
+                        <div class="label-field">
+                            <span class="label-icon">💜</span>
+                            <span class="label-text">Grade :</span>
+                        </div>
+                        <div class="label-value" id="display-grade-4">
+                            <span class="label-empty">Enter your grade</span>
+                        </div>
+                        
+                        <div class="label-field">
+                            <span class="label-icon">💖</span>
+                            <span class="label-text">Subject :</span>
+                        </div>
+                        <div class="label-value" id="display-subject-4">
+                            <span class="label-empty">Enter subject</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Label 5 -->
+                <div class="label-box">
+                    <div class="label-content">
+                        <div class="label-field">
+                            <span class="label-icon">💖</span>
+                            <span class="label-text">Name :</span>
+                        </div>
+                        <div class="label-value" id="display-name-5">
+                            <span class="label-empty">Enter your name</span>
+                        </div>
+                        
+                        <div class="label-field">
+                            <span class="label-icon">💜</span>
+                            <span class="label-text">Grade :</span>
+                        </div>
+                        <div class="label-value" id="display-grade-5">
+                            <span class="label-empty">Enter your grade</span>
+                        </div>
+                        
+                        <div class="label-field">
+                            <span class="label-icon">💖</span>
+                            <span class="label-text">Subject :</span>
+                        </div>
+                        <div class="label-value" id="display-subject-5">
+                            <span class="label-empty">Enter subject</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Label 6 -->
+                <div class="label-box">
+                    <div class="label-content">
+                        <div class="label-field">
+                            <span class="label-icon">💖</span>
+                            <span class="label-text">Name :</span>
+                        </div>
+                        <div class="label-value" id="display-name-6">
+                            <span class="label-empty">Enter your name</span>
+                        </div>
+                        
+                        <div class="label-field">
+                            <span class="label-icon">💜</span>
+                            <span class="label-text">Grade :</span>
+                        </div>
+                        <div class="label-value" id="display-grade-6">
+                            <span class="label-empty">Enter your grade</span>
+                        </div>
+                        
+                        <div class="label-field">
+                            <span class="label-icon">💖</span>
+                            <span class="label-text">Subject :</span>
+                        </div>
+                        <div class="label-value" id="display-subject-6">
+                            <span class="label-empty">Enter subject</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function updateLabels() {
+            const name = document.getElementById('name').value || '';
+            const grade = document.getElementById('grade').value || '';
+            const subject = document.getElementById('subject').value || '';
+
+            // Update all 6 labels
+            for (let i = 1; i <= 6; i++) {
+                updateLabelField(`display-name-${i}`, name);
+                updateLabelField(`display-grade-${i}`, grade);
+                updateLabelField(`display-subject-${i}`, subject);
+            }
+        }
+
+        function updateLabelField(elementId, value) {
+            const element = document.getElementById(elementId);
+            if (value.trim()) {
+                element.innerHTML = value;
+                element.classList.remove('label-empty');
+            } else {
+                element.innerHTML = '<span class="label-empty">Enter information</span>';
+                element.classList.add('label-empty');
+            }
+        }
+
+        function resetForm() {
+            document.getElementById('name').value = '';
+            document.getElementById('grade').value = '';
+            document.getElementById('subject').value = '';
+            updateLabels();
+        }
+
+        // Initialize on page load
+        window.addEventListener('load', updateLabels);
+    </script>
+</body>
+</html>
